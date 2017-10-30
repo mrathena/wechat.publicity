@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+	<property name="log.path" value="/log" />
+	<property name="log.name" value="wechat.publicity" />
+	<property name="log.size.max" value="10MB" />
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>[%date{HH:mm:ss.SSS}][%thread][%level][%logger{1}.%method:%line] %message%n</Pattern>
+		</encoder>
+	</appender>
+
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.path}/${log.name}</File>
+		<encoder>
+			<pattern>[%date{yyyy-MM-dd.HH:mm:ss.SSS}][%thread][%level][%logger{1}.%method:%line] %message%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.path}/${log.name}.%d{yyyyMMdd}.%i.log</FileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${log.size.max}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</root>
+
+</configuration>  
